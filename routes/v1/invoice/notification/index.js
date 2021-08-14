@@ -26,7 +26,10 @@ router.post("/", async function (req, res, next) {
     } else {
       let randomString = await makeid(5);
       let sourceURL = req.body.paymentURL;
-      let expectURL = `${req.body.merchantName}-${randomString}`;
+      let expectURL = `${req.body.merchantName.replace(
+        / /g,
+        "-"
+      )}-${randomString}`;
       let number = req.body.number;
       let dataShortener = qs.stringify({
         url: sourceURL,
